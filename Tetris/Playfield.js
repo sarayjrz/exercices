@@ -36,8 +36,10 @@ function Playfield() {
 
   this.getAvailableRow = function(tetromino, column) {
     let width = tetromino.getWidth();
+    console.log(column);
     for(let i = 0; i < this.cells.length; i++) {
       for(let j = column; j < column + width; j++) {
+        console.log(i);
         if(!this.isEmptyCell(new Coordinate(i,j))) {
           return i--;
         }
@@ -49,7 +51,9 @@ function Playfield() {
     let topLeft = new Coordinate(coordinate.row - tetromino.getHeight(), coordinate.column);
     for(let i = 0; i < tetromino.getHeight(); i++) {
       for(let j = 0; j < tetromino.getWidth(); j++) {
-        this.cells[topLeft.row + i][topLeft.column + j] = tetromino.getTetromino()[i][j];
+        if(tetromino.isFilledCell(new Coordinate(i,j))) {
+          this.cells[topLeft.row + i][topLeft.column + j] = tetromino.getTetromino()[i][j];
+        }
       }
     }
   }

@@ -2,7 +2,7 @@ function TranslateCommand(tetromino, playfield) {
   this.title = "TRANSLATE";
   this.tetromino = tetromino;
   this.playfield = playfield;
-  this.column = (Playfield.WIDTH - 1) / 2 - Math.floor(this.tetromino.getWidth() / 2);
+  this.column = Math.floor(Playfield.WIDTH / 2 - this.tetromino.getWidth() / 2);
   this.message = new Message();
 
   this.getTitle = function() {

@@ -17,4 +17,8 @@ function Tetromino(type) {
   this.getHeight = function() {
     return this.getTetromino().length;
   }
+
+  this.isFilledCell = function(coordinate) {
+    return this.getTetromino()[coordinate.row][coordinate.column] == Playfield.FILLED;
+  }
 }
