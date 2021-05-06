@@ -31,15 +31,16 @@ function Playfield() {
     let row = this.getAvailableRow(tetromino, column);
     this.fillCells(tetromino, new Coordinate(row, column));
     this.message.showDropSuccess(this);
-    this.clearCompleteRows();
+    if(this.isAnyCompleteRow()) {
+      this.clearCompleteRows();
+    }
   }
 
   this.getFilter = function(tetromino, fromRow, fromColumn) {
     let result = [];
     for(let i = fromRow; i < fromRow + tetromino.getHeight() - 1; i++) {
       result[i - fromRow] = [];
-      for (let j = fromColumn; j < fromColumn + tetromino.getWidth() - 1; j++) {
-        console.log("i: " + i, this.cells[i]);
+      for(let j = fromColumn; j < fromColumn + tetromino.getWidth(); j++) {
         result[i - fromRow][j - fromColumn] = this.cells[i][j];
       }
     }
@@ -47,10 +48,10 @@ function Playfield() {
   }
 
   this.getAvailableRow = function(tetromino, column) {
-    for(let i = 0; i < this.cells.length; i++) {
+    for(let i = 0; i < Playfield.HEIGHT; i++) {
       let filter = this.getFilter(tetromino, i, column);
       if(tetromino.isCollision(filter)) {
-        return i - 1;
+        return i - 1
       }
     }
     return Playfield.HEIGHT;
@@ -101,7 +102,7 @@ function Playfield() {
     while(this.isAnyCompleteRow()) {
       for(let i = Playfield.HEIGHT - 1; i > 0; i--) {
         if(this.isCompleteRow(i)) {
-          copyUpperRows(this, i);
+          this.copyUpperRows(i);
           this.cells[0] = addEmptyRow();
         }
       }
@@ -109,9 +110,9 @@ function Playfield() {
     this.message.showClearSuccess(this);
   }
 
-  function copyUpperRows(playfield, start) {
+  this.copyUpperRows = function(start) {
     for(let i = start; i > 1; i--) {
-      playfield.cells[i] = playfield.cells[i - 1];
+      this.cells[i] = this.cells[i - 1];
     }
   }
 }
