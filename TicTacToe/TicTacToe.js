@@ -1,6 +1,7 @@
 function TicTacToe() {
   this.board = new Board();
   this.turn = new Turn(this.board);
+  this.message = new Message();
 
   this.play = function() {
     let isTicTacToe = false;
@@ -11,7 +12,9 @@ function TicTacToe() {
       if(!isTicTacToe) {
         this.turn.change();
       }
-    } while(!isTicTacToe)
-    currentPlayer.declareVictory();
+    } while(!isTicTacToe);
+    this.message.showVictory(currentPlayer);
   }
 }
+
+TicTacToe.TOKENS_IN_ROW = 3;

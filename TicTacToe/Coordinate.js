@@ -1,17 +1,10 @@
 function Coordinate(row, column) {
   this.row = row;
   this.column = column;
-  this.LIMIT = 3;
-  this.DIRECTIONS = {
-    DIAGONAL: 'diagonal',
-    INVERSE_DIAGONAL: 'inverse diagonal',
-    HORIZONTAL: 'horizontal',
-    VERTICAL: 'vertical'
-  };
 
   this.isValid = function() {
-    return this.row >= 0 && this.row < this.LIMIT &&
-      this.column >= 0 && this.column < this.LIMIT;
+    return this.row >= 0 && this.row < TicTacToe.TOKENS_IN_ROW &&
+      this.column >= 0 && this.column < TicTacToe.TOKENS_IN_ROW;
   }
 
   this.equals = function(coordinate) {
@@ -20,13 +13,13 @@ function Coordinate(row, column) {
 
   this.getDirection = function(coordinate) {
     if(this.isInDiagonal() && coordinate.isInDiagonal()) {
-      return this.DIRECTIONS.DIAGONAL;
+      return Coordinate.DIRECTIONS.DIAGONAL;
     } else if(this.isInInverseDiagonal() && coordinate.isInInverseDiagonal()) {
-      return this.DIRECTIONS.INVERSE_DIAGONAL;
+      return Coordinate.DIRECTIONS.INVERSE_DIAGONAL;
     } else if(this.getRow() == coordinate.getRow()) {
-      return this.DIRECTIONS.HORIZONTAL;
+      return Coordinate.DIRECTIONS.HORIZONTAL;
     } else if(this.getColumn() == coordinate.getColumn()) {
-      return this.DIRECTIONS.VERTICAL;
+      return Coordinate.DIRECTIONS.VERTICAL;
     }
     return null;
   }
@@ -36,7 +29,7 @@ function Coordinate(row, column) {
   }
 
   this.isInInverseDiagonal = function() {
-    return this.row + this.column == this.LIMIT;
+    return this.row + this.column == TicTacToe.TOKENS_IN_ROW;
   }
 
   this.getRow = function() {
@@ -47,3 +40,10 @@ function Coordinate(row, column) {
     return this.column;
   }
 }
+
+Coordinate.DIRECTIONS = {
+  DIAGONAL: 'diagonal',
+  INVERSE_DIAGONAL: 'inverse diagonal',
+  HORIZONTAL: 'horizontal',
+  VERTICAL: 'vertical'
+};

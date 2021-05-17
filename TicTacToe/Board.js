@@ -1,30 +1,37 @@
 function Board() {
-  this.TOKENS_IN_ROW = 3;
+  this.squares = createBoard();
 
-  this.squares = [];
-  for(let i = 0; i < this.TOKENS_IN_ROW; i++) {
-    for(let j = 0; j < this.TOKENS_IN_ROW; j++) {
-      this.squares.push(new Square(new Coordinate(i,j)));
+  function createBoard() {
+    let result = [];
+    for(let i = 0; i < TicTacToe.TOKENS_IN_ROW; i++) {
+      result[i] = [];
+      for(let j = 0; j < TicTacToe.TOKENS_IN_ROW; j++) {
+        result[i][j] = Board.EMPTY;
+      }
     }
+    return result;
   }
 
   this.isTicTacToe = function(color) {
-    let squares = [];
-    for(let i = 0; i < this.squares.length; i++) {
-      if(this.squares[i].color == color) {
-        squares.push(this.squares[i]);
+    let coordinates = [];
+    for(let i = 0; i < TicTacToe.TOKENS_IN_ROW; i++) {
+      for(let j = 0; j < TicTacToe.TOKENS_IN_ROW; j++) {
+        let coordinate = new Coordinate(i,j);
+        if(this.getToken(coordinate) == color) {
+          coordinates.push(coordinate);
+        }
       }
     }
-    if (squares.length < this.TOKENS_IN_ROW) {
+    if(coordinates.length < TicTacToe.TOKENS_IN_ROW) {
       return false;
     }
-    return this.inSameDirectionNotNull(squares);
+    return this.inSameDirectionNotNull(coordinates);
   }
 
-  this.inSameDirectionNotNull = function(squares) {
+  this.inSameDirectionNotNull = function(coordinates) {
     let directions = [];
-    for(let i = 0; i < squares.length - 1; i++) {
-      directions.push(squares[i].position.getDirection(squares[i + 1].position));
+    for(let i = 0; i < coordinates.length - 1; i++) {
+      directions.push(coordinates[i].getDirection(coordinates[i + 1]));
     }
     for(let i = 0; i < directions.length - 1; i++) {
       if(directions[i] != directions[i + 1]) {
@@ -34,30 +41,29 @@ function Board() {
     return directions[0] != null;
   }
 
-  this.isRemoveMovementValid = function(coordinate, color) {
-    return this.getToken(coordinate).color == color;
+  this.isRemoveValid = function(coordinate, color) {
+    return this.getToken(coordinate) == color;
   }
 
-  this.isPutMovementValid = function(coordinate) {
-    return this.getToken(coordinate).isEmpty();
+  this.isPutValid = function(coordinate) {
+    return this.isSquareEmpty(coordinate);
+  }
+
+  this.isSquareEmpty = function(coordinate) {
+    return this.getToken(coordinate) == Board.EMPTY;
+  }
+
+  this.putToken = function(coordinate, color) {
+    this.squares[coordinate.row][coordinate.column] = color;
+  }
+
+  this.removeToken = function(coordinate) {
+    this.squares[coordinate.row][coordinate.column] = Board.EMPTY;
   }
 
   this.getToken = function(coordinate) {
-    for(let i = 0; i < this.squares.length; i++) {
-      if(coordinate.equals(this.squares[i].position)) {
-        return this.squares[i];
-      }
-    }
-  }
-
-  this.print = function() {
-    let board = "";
-    for(let i = 0; i < this.TOKENS_IN_ROW; i++) {
-      for(let j = 0; j < this.TOKENS_IN_ROW; j++) {
-        board += this.getToken(new Coordinate(i,j)).color;
-      }
-      board += "\n";
-    }
-    console.log(board);
+    return this.squares[coordinate.row][coordinate.column];
   }
 }
+
+Board.EMPTY = "·";

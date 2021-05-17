@@ -1,8 +1,7 @@
 function Turn(board) {
   this.board = board;
-  this.COLORS = ['o','x'];
   this.players = [];
-  for(let color of this.COLORS) {
+  for(let color of Turn.COLORS) {
     this.players.push(new Player(color, this.board))
   }
   this.currentPlayer = Math.round(Math.random());
@@ -19,3 +18,5 @@ function Turn(board) {
     return this.players[this.currentPlayer];
   }
 }
+
+Turn.COLORS = ['o','x'];
