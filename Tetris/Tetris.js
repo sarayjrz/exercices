@@ -3,18 +3,14 @@ function Tetris() {
   this.message = new Message();
 
   this.play = function() {
-    let isGameOver;
     this.message.showPlayfield(this.playfield);
+    let tetromino;
+    let menu;
     do {
-      let tetromino = this.generateRandomTetromino();
-      let menu = new TetrominoMenu(tetromino, this.playfield);
+      tetromino = this.generateRandomTetromino();
+      menu = new TetrominoMenu(tetromino, this.playfield);
       menu.execute();
-      let column = menu.getColumn();
-      isGameOver = this.playfield.isGameOver(tetromino, column);
-      if(!isGameOver) {
-        this.playfield.drop(tetromino, column);
-      }
-    } while(!isGameOver)
+    } while(!this.playfield.isGameOver(tetromino, menu.getColumn()));
     this.message.showGameOver();
   }
 

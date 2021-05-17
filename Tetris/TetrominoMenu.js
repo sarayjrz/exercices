@@ -1,11 +1,13 @@
 function TetrominoMenu(tetromino, playfield) {
   this.tetromino = tetromino;
   this.playfield = playfield;
-  this.translateCommand = new TranslateCommand(this.tetromino, this.playfield);
+  this.column = {
+    value: Math.floor(Playfield.WIDTH / 2 - this.tetromino.getWidth() / 2)
+  }
   this.commands = [
     new RotateCommand(this.tetromino),
-    this.translateCommand,
-    new DropCommand(this.translateCommand)
+    new TranslateCommand(this.tetromino, this.playfield, this.column),
+    new DropCommand(this.tetromino, this.playfield, this.column)
   ];
   this.message = new Message();
 
@@ -25,6 +27,7 @@ function TetrominoMenu(tetromino, playfield) {
   }
 
   this.getColumn = function() {
-    return this.translateCommand.getColumn();
+    return this.column.value;
   }
+
 }

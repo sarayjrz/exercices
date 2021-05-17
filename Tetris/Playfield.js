@@ -31,20 +31,30 @@ function Playfield() {
     let row = this.getAvailableRow(tetromino, column);
     this.fillCells(tetromino, new Coordinate(row, column));
     this.message.showDropSuccess(this);
-    this.clearCompleteRows();
+    if(this.isAnyCompleteRow()) {
+      this.clearCompleteRows();
+    }
+  }
+
+  this.getFilter = function(tetromino, fromRow, fromColumn) {
+    let result = [];
+    for(let i = fromRow; i < fromRow + tetromino.getHeight(); i++) {
+      result[i - fromRow] = [];
+      for(let j = fromColumn; j < fromColumn + tetromino.getWidth(); j++) {
+        result[i - fromRow][j - fromColumn] = this.cells[i][j];
+      }
+    }
+    return result;
   }
 
   this.getAvailableRow = function(tetromino, column) {
-    let width = tetromino.getWidth();
-    console.log(column);
-    for(let i = 0; i < this.cells.length; i++) {
-      for(let j = column; j < column + width; j++) {
-        console.log(i);
-        if(!this.isEmptyCell(new Coordinate(i,j))) {
-          return i--;
-        }
+    for(let i = 0; i < Playfield.HEIGHT; i++) {
+      let filter = this.getFilter(tetromino, i, column);
+      if(tetromino.isCollision(filter)) {
+        return i + tetromino.getHeight() - 1;
       }
     }
+    return Playfield.HEIGHT;
   }
 
   this.fillCells = function(tetromino, coordinate) {
@@ -67,7 +77,7 @@ function Playfield() {
   }
 
   this.isGameOver = function(tetromino, column) {
-    return this.getAvailableRow(tetromino, column) - tetromino.getHeight() < 0;
+    return this.getAvailableRow(tetromino, column) == -1;
   }
 
   this.isAnyCompleteRow = function() {
@@ -92,7 +102,7 @@ function Playfield() {
     while(this.isAnyCompleteRow()) {
       for(let i = Playfield.HEIGHT - 1; i > 0; i--) {
         if(this.isCompleteRow(i)) {
-          copyUpperRows(this, i);
+          this.copyUpperRows(i);
           this.cells[0] = addEmptyRow();
         }
       }
@@ -100,9 +110,9 @@ function Playfield() {
     this.message.showClearSuccess(this);
   }
 
-  function copyUpperRows(playfield, start) {
+  this.copyUpperRows = function(start) {
     for(let i = start; i > 1; i--) {
-      playfield.cells[i] = playfield.cells[i - 1];
+      this.cells[i] = this.cells[i - 1];
     }
   }
 }

@@ -21,4 +21,16 @@ function Tetromino(type) {
   this.isFilledCell = function(coordinate) {
     return this.getTetromino()[coordinate.row][coordinate.column] == Playfield.FILLED;
   }
+
+  this.isCollision = function(filter) {
+    for(let i = 0; i < filter.length; i++) {
+      for(let j = 0; j < filter[i].length; j++) {
+        if(this.isFilledCell(new Coordinate(i,j)) && filter[i][j] == Playfield.FILLED) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
 }
