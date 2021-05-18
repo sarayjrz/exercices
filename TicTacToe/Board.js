@@ -67,3 +67,4 @@ function Board() {
 }
 
 Board.EMPTY = "·";
+Board.BORDER = "|";

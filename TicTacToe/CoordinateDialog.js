@@ -5,12 +5,12 @@ function CoordinateDialog() {
     let coordinate;
     let error;
     do {
-      let row = prompt(type == "ORIGIN" ?
-        this.message.get("READ_ROW_ORIGIN") :
-        this.message.get("READ_ROW_TARGET"));
-      let column = prompt(type == "ORIGIN" ?
-        this.message.get("READ_COL_ORIGIN") :
-        this.message.get("READ_COL_TARGET"));
+      let row = prompt(this.message.get(
+        type == "ORIGIN" ? "READ_ROW_ORIGIN" : "READ_ROW_TARGET"
+      ));
+      let column = prompt(this.message.get(
+        type == "ORIGIN" ? "READ_COL_ORIGIN" : "READ_COL_TARGET"
+      ));
       coordinate = new Coordinate(row - 1, column - 1);
       error = !coordinate.isValid();
       if(error) {

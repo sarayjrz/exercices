@@ -6,10 +6,10 @@ function Message() {
   this.showBoard = function(board) {
     let result = "";
     for(let i = 0; i < TicTacToe.TOKENS_IN_ROW; i++) {
-      result += Message.BORDER;
+      result += Board.BORDER;
       for(let j = 0; j < TicTacToe.TOKENS_IN_ROW; j++) {
         result += board.getToken(new Coordinate(i, j));
-        result += Message.BORDER;
+        result += Board.BORDER;
       }
       result += "\n";
     }
@@ -29,7 +29,7 @@ function Message() {
   }
 
   this.showVictory = function(player) {
-    console.log(this.get("VICTORY") + player.color + ".");
+    alert(this.get("VICTORY") + player.color + ".");
   }
 
   this.get = function(key) {
@@ -46,4 +46,3 @@ Message.READ_ROW_ORIGIN = "Escribe la fila de la coordenada donde quitarás tu f
 Message.READ_COL_ORIGIN = "Escribe la columna de la coordenada donde quitarás tu ficha (1 - 3):";
 Message.COORDINATE_INVALID = "La coordenada no es válida o está fuera de los límites del tablero.";
 Message.VICTORY = "Fin de la partida! Ha ganado el jugador ";
-Message.BORDER = "|";

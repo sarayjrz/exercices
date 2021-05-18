@@ -6,6 +6,7 @@ function TicTacToe() {
   this.play = function() {
     let isTicTacToe = false;
     let currentPlayer = this.turn.getCurrentPlayer();
+    this.message.showBoard(this.board);
     do {
       this.turn.play();
       isTicTacToe = this.board.isTicTacToe(currentPlayer.color);

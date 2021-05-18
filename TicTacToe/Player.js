@@ -10,6 +10,7 @@ function Player(color, board) {
     if(!this.haveTokensLeft()) {
       let origin = coordinateDialog.readOrigin(this.board, this.color);
       this.board.removeToken(origin);
+      this.message.showBoard(this.board);
     }
     let target = coordinateDialog.readTarget(this.board);
     this.putToken(target);
