@@ -16,6 +16,6 @@ function MasterMind() {
         attempts++;
       }
     } while(attempts < this.MAX_ATTEMPTS || !codeBroken)
-    new Console().writeFinal(codeBroken);
+    new Message().writeFinal(codeBroken);
   }
 }
