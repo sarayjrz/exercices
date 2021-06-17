@@ -1,11 +1,13 @@
 function CombinationView() {
   this.read = function() {
+    let combination = new Combination();
     alert(this.getMessage("SUGGEST_NEW_COMBINATION"));
     let result = [];
     for(let i = 0; i < Combination.LENGTH; i++) {
       result.push(this.readColor());
     }
-    return result;
+    combination.set(result);
+    return combination;
   }
 
   this.readColor = function() {
