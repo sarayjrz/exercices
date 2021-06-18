@@ -1,8 +1,8 @@
 function SecretCombinationView() {
-  this.showFeedback = function(feedback) {
-    console.log(this.getMessage("FEEDBACK_IS") +
+  this.messageFeedback = function(feedback) {
+    return this.getMessage("FEEDBACK_IS") +
       "\n" + this.getMessage("BLACKS") + feedback.blacks +
-      "\n" + this.getMessage("WHITES") + feedback.whites);
+      "\n" + this.getMessage("WHITES") + feedback.whites;
   }
 
   this.getMessage = function(key) {
@@ -11,5 +11,5 @@ function SecretCombinationView() {
 }
 
 SecretCombinationView.BLACKS = "Blacks: ";
+SecretCombinationView.FEEDBACK_IS = "Feedback:";
 SecretCombinationView.WHITES = "Whites: "
-SecretCombinationView.FEEDBACK_IS = "The feedback is:";

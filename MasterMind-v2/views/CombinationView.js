@@ -65,5 +65,4 @@ CombinationView.GREEN = "Green";
 CombinationView.ORANGE = "Orange";
 CombinationView.RED = "Red";
 CombinationView.SUGGEST_NEW_COMBINATION = "Suggest a new combination:";
-CombinationView.SUGGESTED_COMBINATION = "The suggested combination is: ";
 CombinationView.YELLOW = "Yellow";

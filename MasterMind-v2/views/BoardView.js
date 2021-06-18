@@ -5,18 +5,21 @@ function BoardView(board) {
 
   this.showBoard = function() {
     console.clear();
-    // TODO pulir como se muestra el board, sacar todo en la misma linea de consola
+    let message = "";
     for(let i = 0; i < this.board.attempts.length; i++) {
-      this.showAttemptNumber(i);
-      this.combinationView.showAttempt(this.board.attempts[i]);
-      this.secretCombinationView.showFeedback(
-        this.board.secretCombination.feedback(this.board.attempts[i])
-      );
+      message += this.messageAttemptNumber(i) + "\n";
+      message += this.getMessage("SUGGESTED_COMBINATION") + "\n";
+      message += this.combinationView.getColors(board.attempts[i]) + ".\n";
+      message += this.secretCombinationView.messageFeedback(this.board.secretCombination.feedback(this.board.attempts[i]));
+      if(i != board.attempts.length - 1) {
+        message += this.getMessage("SEPARATOR");
+      }
     }
+    console.log(message);
   }
 
-  this.showAttemptNumber = function(num) {
-    console.log(this.getMessage("ATTEMPT") + (num + 1) + "/" + MasterMind.MAX_ATTEMPTS + ".");
+  this.messageAttemptNumber = function(num) {
+    return this.getMessage("ATTEMPT") + (num + 1) + "/" + MasterMind.MAX_ATTEMPTS + ".";
   }
 
   this.getMessage = function(key) {
@@ -25,3 +28,5 @@ function BoardView(board) {
 }
 
 BoardView.ATTEMPT = "Attempt ";
+BoardView.SEPARATOR = "\n-----------------------\n";
+BoardView.SUGGESTED_COMBINATION = "Suggested combination:";
