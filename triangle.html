@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let height;
+    do {
+        height = parseInt(prompt("Set the triangle height: (int number)"));
+    } while (height === null || Number.isNaN(height) || height === 0);
+
+
+    writeTriangle(getTriangle(height));
+
+    function writeTriangle(matrix) {
+        let result = "";
+        for(let i = 0; i < matrix.length; i++) {
+            for(let j = 0; j < matrix[i].length; j++) {
+                result += matrix[i][j] + " ";
+            }
+            result += "\n";
+        }
+        console.log(result);
+    }
+
+    function getTriangle(height) {
+        if(height === 1) {
+            return [
+                [1],
+            ];
+        }
+        let result = [
+            [1],
+            [1,1]
+        ];
+        // quitar
+        if (height === 2) {
+            return result;
+        }
+        for (let i = 1; i < height-1; i++) {
+            result.push(getNextRow(result[i]));
+        }
+        return result;
+    }
+
+    function getNextRow(row) {
+        let result = [1];
+        for(let i = 0; i < row.length - 1; i++) {
+            result.push(row[i] + row[i+1]);
+        }
+        result.push(1);
+        return result;
+    }
+</script>
+</html>
